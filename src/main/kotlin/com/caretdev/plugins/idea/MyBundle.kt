@@ -1,4 +1,4 @@
-package com.github.daimor.intellijintersystems
+package com.caretdev.plugins.idea
 
 import com.intellij.AbstractBundle
 import org.jetbrains.annotations.NonNls

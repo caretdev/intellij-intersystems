@@ -1,0 +1,87 @@
+{
+  "name": "objectscript",
+  "displayName": "%displayName%",
+  "description": "%description%",
+  "version": "1.0.0",
+  "publisher": "vscode",
+  "license": "MIT",
+  "engines": { "vscode": "*" },
+  "contributes": {
+    "languages": [
+      {
+        "id": "objectscript",
+        "aliases": [
+          "ObjectScript"
+        ],
+        "extensions": [
+          ".mac",
+          ".int"
+        ]
+      },
+      {
+        "id": "objectscript-class",
+        "aliases": [
+          "ObjectScript Class"
+        ],
+        "extensions": [
+          ".cls"
+        ]
+      },
+      {
+        "id": "objectscript-macros",
+        "aliases": [
+          "ObjectScript Include"
+        ],
+        "extensions": [
+          ".inc"
+        ]
+      },
+      {
+        "id": "objectscript-csp",
+        "aliases": [
+          "ObjectScript CSP"
+        ],
+        "extensions": [
+          "csp"
+        ]
+      }
+    ],
+    "grammars": [
+      {
+        "language": "objectscript",
+        "scopeName": "source.objectscript",
+        "path": "syntaxes/objectscript.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.embedded.block.sql": "sql",
+          "text.html": "html",
+          "text.js": "js"
+        }
+      },
+      {
+        "language": "objectscript-class",
+        "scopeName": "source.objectscript_class",
+        "path": "syntaxes/objectscript-class.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.embedded.block.sql": "sql",
+          "meta.embedded.block.objectscript": "objectscript",
+          "text.xml": "xml",
+          "text.html": "html",
+          "text.js": "js"
+        }
+      },
+      {
+        "language": "objectscript-macros",
+        "scopeName": "source.objectscript_macros",
+        "path": "syntaxes/objectscript-macros.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.preprocessor.objectscript": "source.objectscript"
+        }
+      },
+      {
+        "language": "objectscript-csp",
+        "scopeName": "source.objectscript_csp",
+        "path": "syntaxes/objectscript-csp.tmLanguage.json"
+      }
+    ]
+  }
+}

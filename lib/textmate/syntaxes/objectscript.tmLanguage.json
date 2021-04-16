@@ -1,0 +1,239 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "objectscript",
+  "scopeName": "source.objectscript",
+  "patterns": [
+    {
+      "match": "^(ROUTINE)\\s(\\b[\\p{Alnum}.]+\\b)",
+      "captures": {
+        "1": { "name": "keyword.control" },
+        "2": { "name": "entity.name.class" }
+      }
+    },
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#embedded"
+    },
+    {
+      "include": "#constants"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#macros"
+    },
+    {
+      "include": "#elements"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "begin": "(/\\*)",
+          "beginCaptures": { "1": { "name": "comment.multiline.objectscript" } },
+          "contentName": "comment.multiline.objectscript",
+          "end": "(.*?\\*/)",
+          "endCaptures": { "1": { "name": "comment.multiline.objectscript" } }
+        },
+        { "begin": "^\\s*#;", "end": "$", "name": "comment.line.macro.objectscript" },
+        { "begin": "//|;", "end": "$", "name": "comment.endline.objectscript" },
+        { "begin": "##;", "end": "$", "name": "comment.endline.macro.objectscript" }
+      ]
+    },
+    "statements": {
+      "patterns": [{ "include": "#variables" }]
+    },
+    "embedded": {
+      "patterns": [
+        {
+          "include": "#embeddedSQL"
+        },
+        {
+          "include": "#embeddedJS"
+        }
+      ]
+    },
+    "embeddedSQL": {
+      "patterns": [
+        {
+          "begin": "(?i)(&sql)(\\()",
+          "beginCaptures": {
+            "1": { "name": "keyword.special.sql.objectscript" },
+            "2": { "name": "punctuation.objectscript" }
+          },
+          "patterns": [{ "include": "source.sql" }],
+          "contentName": "meta.embedded.block.sql",
+          "end": "\\)"
+        }
+      ]
+    },
+    "embeddedJS": {
+      "patterns": [
+        {
+          "begin": "(?i)(&js(cript)?)(<)",
+          "beginCaptures": {
+            "1": { "name": "keyword.special.js.objectscript" },
+            "2": { "name": "punctuation.objectscript" }
+          },
+          "patterns": [{ "include": "source.js" }],
+          "contentName": "text.js",
+          "end": ">"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "include": "#commands"
+        },
+        {
+          "include": "#control-commands"
+        }
+      ]
+    },
+    "commands": {
+      "patterns": [
+        {
+          "match": "(?i)(?<=\\s|\\.)\\b(BREAK|B|SET|S|DO|D|KILL|K|GOTO|G|READ|R|WRITE|W|OPEN|O|USE|U|CLOSE|C|CONTINUE|FOR|F|HALT|H|HANG|JOB|J|MERGE|M|NEW|N|QUIT|Q|RETURN|RET|TSTART|TS|TCOMMIT|TC|TROLLBACK|TRO|THROW|VIEW|V|XECUTE|X|ZKILL|ZL|ZNSPACE|ZN|ZTRAP|ZWRITE|ZW|ZZDUMP|ZZWRITE)\\b(?=( (?![=+-]|\\&|\\|)|:|$))",
+          "captures": { "1": { "name": "keyword.control.objectscript" } }
+        },
+        {
+          "match": "(?i)(?<=\\s|\\.)\\b(LOCK|L)\\b(?=( (?![=]|\\&|\\|)|:|$))",
+          "captures": { "1": { "name": "keyword.control.objectscript" } }
+        }
+      ]
+    },
+    "control-commands": {
+      "patterns": [
+        {
+          "match": "(?i)(?<=\\s|\\.)\\b(IF|I|WHILE|FOR|F|TRY|CATCH|ELSE|E|ELSEIF)\\b(?=( (?![=+-]|\\&|\\|)|:|$))",
+          "captures": { "1": { "name": "keyword.control.objectscript" } }
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "begin": "(\")",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.string.begin.objectscript"
+            }
+          },
+          "end": "(\")",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.string.end.objectscript"
+            }
+          },
+          "name": "string.quoted.double.objectscript"
+        },
+        {
+          "match": "\\d+",
+          "name": "constant.numeric.objectscript"
+        }
+      ]
+    },
+    "macros": {
+      "patterns": [
+        {
+          "match": "(?i)(#dim)(\\s)(%?[\\p{Alnum}]+)(\\s)(?:(As)(\\s)(%?[\\p{Alnum}.]+))?",
+          "captures": {
+            "1": { "name": "meta.preprocessor.dim.objectscript" },
+            "2": { "name": "whitespace.objectscript" },
+            "3": { "name": "variable.name" },
+            "4": { "name": "whitespace.objectscript" },
+            "5": { "name": "keyword.as.objectscript" },
+            "6": { "name": "whitespace.objectscript" },
+            "7": { "name": "entity.name.class" }
+          }
+        },
+        {
+          "include": "source.objectscript_macros"
+        }
+      ]
+    },
+    "elements": {
+      "patterns": [
+        {
+          "match": "^([\\p{Alnum}]+)(\\([^)]*\\))(?:\\s+(public|private))?",
+          "captures": {
+            "1": { "name": "entity.name.function" },
+            "2": { "name": "other" },
+            "3": { "name": "keyword.other" }
+          }
+        },
+        {
+          "match": "(?i)(##class)(\\()([^)]+)(\\))",
+          "captures": {
+            "1": { "name": "keyword.other" },
+            "2": { "name": "punctuation.objectscript" },
+            "3": { "name": "entity.name.class" },
+            "4": { "name": "punctuation.objectscript" }
+          }
+        },
+        {
+          "match": "%[\\p{Alnum}]+",
+          "name": "entity.other.attribute-name"
+        },
+        {
+          "match": "[i|r]%[\\p{Alnum}]+",
+          "name": "entity.other.attribute-name"
+        },
+        {
+          "match": "[i|r]%\"[^\".]\"",
+          "name": "entity.other.attribute-name"
+        },
+        {
+          "match": "(\\.{1,2})(%?[\\p{Alnum}]+)(?=\\()",
+          "captures": {
+            "1": { "name": "punctuation.objectscript" },
+            "2": { "name": "entity.other.attribute-name" }
+          }
+        },
+        {
+          "match": "(\\.{1,2})(%?[\\p{Alnum}]+)(?!\\()",
+          "captures": {
+            "1": { "name": "punctuation.objectscript" },
+            "2": { "name": "entity.other.attribute-name" }
+          }
+        },
+        {
+          "match": "(\\.{1,2}#)([\\p{Alnum}]+)",
+          "captures": {
+            "1": { "name": "punctuation.objectscript" },
+            "2": { "name": "meta.parameter.type.variable" }
+          }
+        },
+        {
+          "match": "%?[\\p{Alnum}]+",
+          "name": "variable.name.objectscrip"
+        },
+        {
+          "match": "\\^%?[\\p{Alnum}]+(\\.[\\p{Alnum}]+)*",
+          "name": "variable.name.global.objectscrip"
+        },
+        {
+          "match": "(?i)\\$system(.[\\p{Alnum}]+)*",
+          "name": "entity.name.function.system.objectscript"
+        },
+        {
+          "match": "\\$[\\p{Alnum}]+",
+          "name": "entity.name.function.system.objectscript"
+        },
+        {
+          "match": "\\${2}[\\p{Alnum}]+",
+          "name": "entity.name.function.local.objectscript"
+        },
+        {
+          "match": "\\${3}[\\p{Alnum}]+",
+          "name": "meta.preprocessor.objectscript"
+        }
+      ]
+    }
+  }
+}

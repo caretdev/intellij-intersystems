@@ -1,6 +1,5 @@
 import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.changelog.closure
-import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 fun properties(key: String) = project.findProperty(key).toString()
@@ -18,6 +17,8 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.15.0"
     // ktlint linter - read more: https://github.com/JLLeitschuh/ktlint-gradle
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
+
+    id("de.undercouch.download") version "4.1.1"
 }
 
 group = properties("pluginGroup")
@@ -27,9 +28,13 @@ version = properties("pluginVersion")
 repositories {
     mavenCentral()
     jcenter()
+    maven( "https://jitpack.io" )
 }
 dependencies {
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.15.0")
+    implementation("com.github.ballerina-platform:lsp4intellij:master-SNAPSHOT")
+//    implementation("com.github.ballerina-platform:lsp4intellij:0.94.2")
+//    implementation("com.github.ballerina-platform:lsp4intellij:6b7be45696")
 }
 
 // Configure gradle-intellij-plugin plugin.
@@ -65,6 +70,12 @@ detekt {
     }
 }
 
+tasks.withType<KotlinCompile>().configureEach {
+    kotlinOptions {
+        useIR = true
+    }
+}
+
 tasks {
     // Set the compatibility versions to 1.8
     withType<JavaCompile> {
@@ -83,21 +94,6 @@ tasks {
         version(properties("pluginVersion"))
         sinceBuild(properties("pluginSinceBuild"))
         untilBuild(properties("pluginUntilBuild"))
-
-        // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
-        pluginDescription(
-            closure {
-                File("./README.md").readText().lines().run {
-                    val start = "<!-- Plugin description -->"
-                    val end = "<!-- Plugin description end -->"
-
-                    if (!containsAll(listOf(start, end))) {
-                        throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
-                    }
-                    subList(indexOf(start) + 1, indexOf(end))
-                }.joinToString("\n").run { markdownToHTML(this) }
-            }
-        )
 
         // Get the latest available change notes from the changelog file
         changeNotes(
@@ -118,5 +114,19 @@ tasks {
         // Specify pre-release label to publish the plugin in a custom Release Channel automatically. Read more:
         // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
         channels(properties("pluginVersion").split('-').getOrElse(1) { "default" }.split('.').first())
+    }
+
+    prepareSandbox {
+        doLast {
+            val pluginRoot = "${intellij.sandboxDirectory}/plugins/${intellij.pluginName}"
+            copy {
+                from("lib/language-server")
+                into("${pluginRoot}/lib/language-server/")
+            }
+            copy {
+                from("lib/textmate")
+                into("${pluginRoot}/lib/textmate/")
+            }
+        }
     }
 }

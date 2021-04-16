@@ -1,0 +1,18 @@
+{
+  "registrations": [
+    {
+      "component": {
+        "type": "git",
+        "git": {
+          "name": "intersystems-community/ObjectScript.tmBundle",
+          "repositoryUrl": "https://github.com/intersystems-community/ObjectScript.tmBundle",
+          "commitHash": "0b7465b7f93f65c6d649358b43272b2888c71f7a"
+        }
+      },
+      "license": "MIT",
+      "description": "",
+      "version": "0.0.0"
+    }
+  ],
+  "version": 1
+}
