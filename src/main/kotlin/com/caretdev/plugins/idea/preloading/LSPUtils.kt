@@ -9,7 +9,7 @@ import org.wso2.lsp4intellij.IntellijLanguageClient
 import org.wso2.lsp4intellij.client.languageserver.serverdefinition.RawCommandServerDefinition
 import java.nio.file.Path
 
-class LSPUtils(private val pluginPath : Path) {
+class LSPUtils(private val pluginPath: Path) {
     companion object {
         fun notifyConfigChanges(project: Project) {
             val clientConfig = LSClientConfig(InterSystemsProjectSettings.getStoredSettings(project))
@@ -35,7 +35,7 @@ class LSPUtils(private val pluginPath : Path) {
         val os = OSUtils.operatingSystem
         val arch = System.getProperty("os.arch")
         val exe = if (OSUtils.operatingSystem == OSUtils.WINDOWS) ".exe" else ""
-        var lsPath = pluginPath.resolve("lib/language-server/${os}-${arch}/intersystems-ls${exe}")
+        val lsPath = pluginPath.resolve("lib/language-server/$os-$arch/intersystems-ls$exe")
 
         var command = arrayOf(lsPath.toAbsolutePath().toString())
         if (isDebug) {
@@ -45,7 +45,8 @@ class LSPUtils(private val pluginPath : Path) {
             RawCommandServerDefinition(
                 extList,
                 command
-            ), project
+            ),
+            project
         )
     }
 }

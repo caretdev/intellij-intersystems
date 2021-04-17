@@ -3,8 +3,12 @@ package com.caretdev.plugins.idea.configuration
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.project.Project
 import com.intellij.util.ui.UIUtil
-import javax.swing.*
-
+import javax.swing.JCheckBox
+import javax.swing.JComponent
+import javax.swing.JFormattedTextField
+import javax.swing.JPanel
+import javax.swing.JPasswordField
+import javax.swing.JTextField
 
 class InterSystemsProjectSettingsPanel(project: Project) : WithProject(project), Disposable {
 
@@ -21,33 +25,30 @@ class InterSystemsProjectSettingsPanel(project: Project) : WithProject(project),
     }
 
     fun setData(settings: InterSystemsProjectSettings) {
-        settings.isLsTraceLogs().also { lsTraceLogs!!.isSelected = it }
-        settings.getHost().also { host!!.text = it }
-        settings.getPort().also { port!!.text = it.toString() }
-        settings.getNamespace().also { namespace!!.text = it }
-        settings.getUsername().also { username!!.text = it }
-        settings.getPassword().also { password!!.text = it }
+        lsTraceLogs!!.isSelected = settings.lsTraceLogs
+        host!!.text = settings.host
+        port!!.text = settings.port.toString()
+        namespace!!.text = settings.namespace
+        username!!.text = settings.username
+        password!!.text = settings.password
     }
 
     fun storeSettings(settings: InterSystemsProjectSettings) {
-        with(settings) {
-            setLsTraceLogs(lsTraceLogs!!.isSelected)
-            setHost(host!!.text)
-            setPort(port!!.text.toInt())
-            setNamespace(namespace!!.text)
-            setUsername(username!!.text)
-            setPassword(password!!.text)
-        }
+        settings.lsTraceLogs = lsTraceLogs!!.isSelected
+        settings.host = host!!.text
+        settings.port = port!!.text.toInt()
+        settings.namespace = namespace!!.text
+        settings.username = username!!.text
+        settings.password = password!!.password.joinToString("")
     }
 
-    fun isModified(settings: InterSystemsProjectSettings): Boolean {
-        return lsTraceLogs!!.isSelected != settings.isLsTraceLogs()
-                || host!!.text != settings.getHost()
-                || port!!.text.toInt() != settings.getPort()
-                || namespace!!.text != settings.getNamespace()
-                || username!!.text != settings.getUsername()
-                || password!!.text != settings.getPassword()
-    }
+    fun isModified(settings: InterSystemsProjectSettings): Boolean =
+        lsTraceLogs!!.isSelected != settings.lsTraceLogs ||
+            host!!.text != settings.host ||
+            port!!.text.toInt() != settings.port ||
+            namespace!!.text != settings.namespace ||
+            username!!.text != settings.username ||
+            !password!!.password.contentEquals(settings.password.toCharArray())
 
     override fun dispose() {
         UIUtil.dispose(settingsPane)
@@ -59,21 +60,4 @@ class InterSystemsProjectSettingsPanel(project: Project) : WithProject(project),
         username = null
         password = null
     }
-
-    override fun equals(obj: Any?): Boolean {
-        if (this === obj) {
-            return true
-        } else if (obj == null || this.javaClass != obj.javaClass) {
-            return false
-        }
-        val panel: InterSystemsProjectSettingsPanel = obj as InterSystemsProjectSettingsPanel
-        return (lsTraceLogs == panel.lsTraceLogs
-                && host == panel.host
-                && namespace == panel.namespace
-                && username == panel.username
-                && password == panel.password
-                && port == panel.port
-                && settingsPane == panel.settingsPane)
-    }
-
 }

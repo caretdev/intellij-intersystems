@@ -8,13 +8,13 @@ plugins {
     // Java support
     id("java")
     // Kotlin support
-    id("org.jetbrains.kotlin.jvm") version "1.4.31"
+    id("org.jetbrains.kotlin.jvm") version "1.4.32"
     // gradle-intellij-plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
     id("org.jetbrains.intellij") version "0.7.2"
     // gradle-changelog-plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
     id("org.jetbrains.changelog") version "1.1.2"
     // detekt linter - read more: https://detekt.github.io/detekt/gradle.html
-    id("io.gitlab.arturbosch.detekt") version "1.15.0"
+    id("io.gitlab.arturbosch.detekt") version "1.16.0"
     // ktlint linter - read more: https://github.com/JLLeitschuh/ktlint-gradle
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
 
@@ -28,13 +28,11 @@ version = properties("pluginVersion")
 repositories {
     mavenCentral()
     jcenter()
-    maven( "https://jitpack.io" )
+    maven("https://jitpack.io")
 }
 dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.15.0")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.16.0")
     implementation("com.github.ballerina-platform:lsp4intellij:master-SNAPSHOT")
-//    implementation("com.github.ballerina-platform:lsp4intellij:0.94.2")
-//    implementation("com.github.ballerina-platform:lsp4intellij:6b7be45696")
 }
 
 // Configure gradle-intellij-plugin plugin.
@@ -121,11 +119,11 @@ tasks {
             val pluginRoot = "${intellij.sandboxDirectory}/plugins/${intellij.pluginName}"
             copy {
                 from("lib/language-server")
-                into("${pluginRoot}/lib/language-server/")
+                into("$pluginRoot/lib/language-server/")
             }
             copy {
                 from("lib/textmate")
-                into("${pluginRoot}/lib/textmate/")
+                into("$pluginRoot/lib/textmate/")
             }
         }
     }

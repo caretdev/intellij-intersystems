@@ -1,17 +1,18 @@
+@file:Suppress("UnusedPrivateMember")
 package com.caretdev.plugins.idea.preloading
 
 import com.caretdev.plugins.idea.configuration.InterSystemsProjectSettings
 import com.google.gson.annotations.SerializedName
 
 class LSClientConfig(settings: InterSystemsProjectSettings) {
-    private var traceLog = settings.isLsTraceLogs()
-    private var objectscript = ObjectScript().apply {
+    private val traceLog = settings.lsTraceLogs
+    private val objectscript = ObjectScript().apply {
         conn = ObjectScriptConnection().apply {
-            host = settings.getHost()
-            port = settings.getPort()
-            namespace = settings.getNamespace()
-            username = settings.getUsername()
-            password = settings.getPassword()
+            host = settings.host
+            port = settings.port
+            namespace = settings.namespace
+            username = settings.username
+            password = settings.password
         }
     }
 
@@ -23,7 +24,7 @@ class LSClientConfig(settings: InterSystemsProjectSettings) {
         internal var active = true
         internal var host = ""
         @SerializedName("superPort")
-        internal var port = 1972
+        internal var port = 0
         @SerializedName("ns")
         internal var namespace = ""
         internal var username = ""

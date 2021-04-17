@@ -1,6 +1,5 @@
 package com.caretdev.plugins.idea.preloading
 
-
 import com.caretdev.plugins.idea.Constants
 import com.intellij.ide.plugins.IdeaPluginDescriptor
 import com.intellij.ide.plugins.PluginManagerCore
@@ -22,14 +21,17 @@ class PluginPreloadingActivity : PreloadingActivity() {
         val lspUtils = LSPUtils(plugin!!.pluginPath)
         lspUtils.registerServerDefinition()
 
-        var connect = ApplicationManager.getApplication().messageBus.connect()
-        connect.subscribe(ProjectManager.TOPIC, object : ProjectManagerListener {
-            override fun projectOpened(project: Project) {
-                lspUtils.registerServerDefinition(project);
+        val connect = ApplicationManager.getApplication().messageBus.connect()
+        connect.subscribe(
+            ProjectManager.TOPIC,
+            object : ProjectManagerListener {
+                override fun projectOpened(project: Project) {
+                    lspUtils.registerServerDefinition(project)
+                }
             }
-        })
+        )
 
-        ProjectManager.getInstance().addProjectManagerListener { _: Project? ->
+        ProjectManager.getInstance().addProjectManagerListener {
             true
         }
     }
