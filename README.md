@@ -1,36 +1,39 @@
-# intellij-intersystems
+# IntelliJ IDEA plugin for InterSystems
 
 ![Build](https://github.com/caretdev/intellij-intersystems/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 
-## Template ToDo list
-- [x] Create a new [IntelliJ Platform Plugin Template][template] project.
-- [ ] Verify the [pluginGroup](/gradle.properties), [plugin ID](/src/main/resources/META-INF/plugin.xml) and [sources package](/src/main/kotlin).
-- [ ] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html).
-- [ ] [Publish a plugin manually](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate) for the first time.
-- [ ] Set the Plugin ID in the above README badges.
-- [ ] Set the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html).
-- [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
+## Features
 
-<!-- Plugin description -->
-The InterSystems IntelliJ plugin provides the InterSystems ObjectScript development capabilities in IntelliJ IDEA.
-<!-- Plugin description end -->
+* Syntax Highlighting for ObjectScript code based on Textmate
+* [InterSystems Language-Server](https://github.com/caretdev/intersystems-ls/) support
+  * Import and compile after save 
 
 ## Installation
 
+<!--
 - Using IDE built-in plugin system:
   
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "intellij-intersystems"</kbd> >
   <kbd>Install Plugin</kbd>
-  
+-->
 - Manually:
 
-  Download the [latest release](https://github.com/caretdev/intellij-intersystems/releases/latest) and install it manually using
+  Download the [latest release](https://github.com/caretdev/intellij-intersystems/releases/) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+  
+## Configuration
 
+* Open any project containing ObjectScript code
+* Open <kbd>Settings/Preferences</kbd> > <kbd>Language & Frameworks</kbd> > <kbd>InterSystems</kbd>
+* Fill all the text fields 
+  ![Preferences](images/Preferences.png)
+  
+## Usage
 
----
-Plugin based on the [IntelliJ Platform Plugin Template][template].
-
-[template]: https://github.com/JetBrains/intellij-platform-plugin-template
+* Open any `mac` or `cls` file, change and save
+* Open <kbd>Event log</kbd>, it should show events about compilation status
+  ![EventLog](images/EventLog.png)
+  
+![Screenshot](images/Screenshot.png)
