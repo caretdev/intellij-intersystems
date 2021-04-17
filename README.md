@@ -1,8 +1,10 @@
 # IntelliJ IDEA plugin for InterSystems
 
 ![Build](https://github.com/caretdev/intellij-intersystems/workflows/Build/badge.svg)
+<!--
 [![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+-->
 
 ## Features
 
@@ -28,12 +30,12 @@
 * Open any project containing ObjectScript code
 * Open <kbd>Settings/Preferences</kbd> > <kbd>Language & Frameworks</kbd> > <kbd>InterSystems</kbd>
 * Fill all the text fields 
-  ![Preferences](images/Preferences.png)
+  ![Preferences](https://raw.githubusercontent.com/caretdev/intellij-intersystems/main/images/Preferences.png)
   
 ## Usage
 
 * Open any `mac` or `cls` file, change and save
 * Open <kbd>Event log</kbd>, it should show events about compilation status
-  ![EventLog](images/EventLog.png)
+  ![EventLog](https://raw.githubusercontent.com/caretdev/intellij-intersystems/main/images/EventLog.png)
   
-![Screenshot](images/Screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/caretdev/intellij-intersystems/main/images/Screenshot.png)
