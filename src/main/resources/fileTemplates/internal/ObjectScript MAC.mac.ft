@@ -1,0 +1,5 @@
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")
+ROUTINE ${PACKAGE_NAME}.${NAME}
+#else
+ROUTINE ${NAME}
+#end

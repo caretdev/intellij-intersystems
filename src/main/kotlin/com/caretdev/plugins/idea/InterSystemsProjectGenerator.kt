@@ -9,19 +9,14 @@ import com.intellij.platform.DirectoryProjectGenerator
 import javax.swing.Icon
 
 class InterSystemsProjectGenerator : DirectoryProjectGenerator<Any?> {
-    override fun getName(): String {
-        return "InterSystems"
-    }
+    override fun getName(): String = "InterSystems"
 
-    override fun getLogo(): Icon {
-        return ICON
-    }
+    override fun getLogo(): Icon = ICON
 
     override fun generateProject(project: Project, baseDir: VirtualFile, settings: Any, module: Module) {
         // lets finish it later
     }
 
-    override fun validate(baseDirPath: String): ValidationResult {
-        return ValidationResult.OK
-    }
+    override fun validate(baseDirPath: String): ValidationResult =
+        ValidationResult.OK
 }

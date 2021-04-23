@@ -12,19 +12,13 @@ class InterSystemsModuleType : ModuleType<InterSystemsModuleBuilder>(Constants.M
         }
     }
 
-    override fun createModuleBuilder(): InterSystemsModuleBuilder {
-        return InterSystemsModuleBuilder()
-    }
+    override fun createModuleBuilder(): InterSystemsModuleBuilder = InterSystemsModuleBuilder()
 
-    override fun getName(): @Nls(capitalization = Nls.Capitalization.Title) String {
-        return "InterSystems"
-    }
+    override fun getName(): @Nls(capitalization = Nls.Capitalization.Title) String = "InterSystems"
 
-    override fun getDescription(): @Nls(capitalization = Nls.Capitalization.Sentence) String {
-        return "InterSystems module"
-    }
+    override fun getDescription(): @Nls(capitalization = Nls.Capitalization.Sentence) String =
+        "InterSystems module"
 
-    override fun getNodeIcon(isOpened: Boolean): Icon {
-        return InterSystemsIcons.ICON
-    }
+    override fun getNodeIcon(isOpened: Boolean): Icon =
+        InterSystemsIcons.ICON
 }

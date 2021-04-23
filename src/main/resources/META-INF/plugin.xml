@@ -6,6 +6,8 @@
     <description><![CDATA[
        The InterSystems IntelliJ plugin provides the <a href="https://intersystems.com">InterSystems</a> ObjectScript development capabilities in IntelliJ IDEA.
     ]]></description>
+
+    <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.platform</depends>
     <depends>org.jetbrains.plugins.textmate</depends>
 
@@ -37,9 +39,37 @@
         <projectService
                 serviceImplementation="com.caretdev.plugins.idea.configuration.InterSystemsProjectSettingsComponent"/>
 
+<!--        <projectExtension implementation="com.caretdev.plugins.idea.project.InterSystemsProjectExtension"/>-->
+<!--        <projectStructure.sourceRootEditHandler-->
+<!--                implementation="com.caretdev.plugins.idea.project.InterSystemsSourceRootEditHandler"/>-->
+
         <directoryProjectGenerator
                 implementation="com.caretdev.plugins.idea.InterSystemsProjectGenerator"/>
 
         <moduleType id="ISC_MODULE" implementationClass="com.caretdev.plugins.idea.InterSystemsModuleType"/>
+
+<!--        <fileType name="ObjectScript Class"-->
+<!--                  language="textmate"-->
+<!--                  implementationClass="com.caretdev.plugins.idea.files.CLSFileType"-->
+<!--                  extensions="cls"-->
+<!--                  fieldName="INSTANCE"/>-->
+        <internalFileTemplate name="ObjectScript Class"/>
+
+<!--        <fileType name="ObjectScript Routine"-->
+<!--                  language="textmate"-->
+<!--                  implementationClass="com.caretdev.plugins.idea.files.MACFileType"-->
+<!--                  extensions="mac"-->
+<!--                  fieldName="INSTANCE"/>-->
+        <internalFileTemplate name="ObjectScript MAC"/>
     </extensions>
+    <actions>
+        <action id="ObjectScript.NewCLSFile"
+                class="com.caretdev.plugins.idea.files.CLSCreateFileAction">
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>
+        </action>
+        <action id="ObjectScript.NewMACFile"
+                class="com.caretdev.plugins.idea.files.MACCreateFileAction">
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>
+        </action>
+    </actions>
 </idea-plugin>

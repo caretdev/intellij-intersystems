@@ -7,7 +7,10 @@ import com.intellij.openapi.project.ProjectManager
 import org.eclipse.lsp4j.DidChangeConfigurationParams
 import org.wso2.lsp4intellij.IntellijLanguageClient
 import org.wso2.lsp4intellij.client.languageserver.serverdefinition.RawCommandServerDefinition
+import java.io.IOException
+import java.nio.file.Files
 import java.nio.file.Path
+import java.nio.file.attribute.PosixFilePermission
 
 class LSPUtils(private val pluginPath: Path) {
     companion object {
@@ -36,6 +39,7 @@ class LSPUtils(private val pluginPath: Path) {
         val arch = System.getProperty("os.arch")
         val exe = if (OSUtils.operatingSystem == OSUtils.WINDOWS) ".exe" else ""
         val lsPath = pluginPath.resolve("lib/language-server/$os-$arch/intersystems-ls$exe")
+        checkExecutable(lsPath)
 
         var command = arrayOf(lsPath.toAbsolutePath().toString())
         if (isDebug) {
@@ -48,5 +52,19 @@ class LSPUtils(private val pluginPath: Path) {
             ),
             project
         )
+    }
+
+    private fun checkExecutable(exePath: Path) {
+        if (OSUtils.operatingSystem == OSUtils.WINDOWS) {
+            return
+        }
+        try {
+            val perms: MutableSet<PosixFilePermission> = HashSet()
+            perms.add(PosixFilePermission.OWNER_EXECUTE)
+
+            Files.setPosixFilePermissions(exePath, perms)
+        } catch (_: IOException) {
+            // Don't care
+        }
     }
 }
