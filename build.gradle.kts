@@ -32,7 +32,7 @@ repositories {
 }
 dependencies {
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.16.0")
-    implementation("com.github.ballerina-platform:lsp4intellij:master-SNAPSHOT")
+    implementation("com.github.ballerina-platform:lsp4intellij:0.94.2")
 }
 
 // Configure gradle-intellij-plugin plugin.
