@@ -18,7 +18,7 @@ plugins {
     // ktlint linter - read more: https://github.com/JLLeitschuh/ktlint-gradle
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
 
-    id("de.undercouch.download") version "4.1.1"
+    id("de.undercouch.download") version "4.1.2"
 }
 
 group = properties("pluginGroup")
