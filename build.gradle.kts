@@ -15,9 +15,9 @@ plugins {
     // detekt linter - read more: https://detekt.github.io/detekt/gradle.html
     id("io.gitlab.arturbosch.detekt") version "1.18.1"
     // ktlint linter - read more: https://github.com/JLLeitschuh/ktlint-gradle
-    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
+    id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
 
-    id("de.undercouch.download") version "4.1.2"
+    id("de.undercouch.download") version "5.0.4"
 }
 
 group = properties("pluginGroup")
@@ -30,7 +30,7 @@ repositories {
     maven("https://jitpack.io")
 }
 dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.18.1")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.19.0")
     implementation("com.github.ballerina-platform:lsp4intellij:master-SNAPSHOT")
 }
 
