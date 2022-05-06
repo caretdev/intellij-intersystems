@@ -7,7 +7,7 @@ class InterSystemsSourceRootProperties :
     JpsElementBase<InterSystemsSourceRootProperties>(),
     JpsSimpleElement<InterSystemsSourceRootProperties> {
     override fun createCopy(): InterSystemsSourceRootProperties =
-        com.caretdev.plugins.idea.project.InterSystemsSourceRootProperties()
+        InterSystemsSourceRootProperties()
 
     override fun applyChanges(modified: InterSystemsSourceRootProperties) {
         // noting to apply, yet

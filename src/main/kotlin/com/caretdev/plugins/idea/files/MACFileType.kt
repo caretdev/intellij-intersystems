@@ -9,9 +9,11 @@ object MACFileType : LanguageFileType(TextMateLanguage.LANGUAGE) {
 
     override fun getName(): String = "ObjectScript Routine"
 
-    override fun getDescription(): String = "ObjectScript routine"
+    override fun getDescription(): String = name
 
     override fun getDefaultExtension(): String = "mac"
 
     override fun getIcon(): Icon = InterSystemsIcons.ICON
+
+    override fun getDisplayName(): String = name
 }

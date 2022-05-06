@@ -9,9 +9,11 @@ object CLSFileType : LanguageFileType(TextMateLanguage.LANGUAGE) {
 
     override fun getName(): String = "ObjectScript Class"
 
-    override fun getDescription(): String = "ObjectScript class"
+    override fun getDescription(): String = name
 
     override fun getDefaultExtension(): String = "cls"
 
     override fun getIcon(): Icon = InterSystemsIcons.ICON
+
+    override fun getDisplayName(): String = name
 }

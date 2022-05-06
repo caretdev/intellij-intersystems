@@ -1,63 +1,62 @@
 package com.caretdev.plugins.idea.configuration
 
-import com.intellij.openapi.Disposable
 import com.intellij.openapi.project.Project
-import com.intellij.util.ui.UIUtil
-import javax.swing.JCheckBox
+import com.intellij.ui.components.JBCheckBox
+import com.intellij.util.ui.FormBuilder
 import javax.swing.JComponent
 import javax.swing.JFormattedTextField
 import javax.swing.JPanel
 import javax.swing.JPasswordField
 import javax.swing.JTextField
 
-class InterSystemsProjectSettingsPanel(project: Project) : WithProject(project), Disposable {
+class InterSystemsProjectSettingsPanel(project: Project) : WithProject(project) {
 
-    private var settingsPane: JPanel? = null
-    private var lsTraceLogs: JCheckBox? = null
-    private var host: JTextField? = null
-    private var port: JFormattedTextField? = null
-    private var namespace: JTextField? = null
-    private var username: JTextField? = null
-    private var password: JPasswordField? = null
+    internal var settingsPane: JPanel
+    private var host: JTextField = JTextField()
+    private var port: JFormattedTextField = JFormattedTextField()
+    private var namespace: JTextField = JTextField()
+    private var username: JTextField = JTextField()
+    private var password: JPasswordField = JPasswordField()
+    private var lsTraceLogs: JBCheckBox = JBCheckBox()
 
-    fun getPanel(): JComponent? {
+    init {
+        settingsPane = FormBuilder.createFormBuilder()
+            .addLabeledComponent("Host:", host)
+            .addLabeledComponent("Port:", port)
+            .addLabeledComponent("Namespace:", namespace)
+            .addLabeledComponent("Username:", username)
+            .addLabeledComponent("Password:", password)
+            .addLabeledComponent("Show trace logs", lsTraceLogs)
+            .addComponentFillVertically(JPanel(), 0)
+            .panel
+    }
+
+    fun getPanel(): JComponent {
         return settingsPane
     }
 
     fun setData(settings: InterSystemsProjectSettings) {
-        lsTraceLogs!!.isSelected = settings.lsTraceLogs
-        host!!.text = settings.host
-        port!!.text = settings.port.toString()
-        namespace!!.text = settings.namespace
-        username!!.text = settings.username
-        password!!.text = settings.password
+        lsTraceLogs.isSelected = settings.lsTraceLogs
+        host.text = settings.host
+        port.text = settings.port.toString()
+        namespace.text = settings.namespace
+        username.text = settings.username
+        password.text = settings.password
     }
 
     fun storeSettings(settings: InterSystemsProjectSettings) {
-        settings.lsTraceLogs = lsTraceLogs!!.isSelected
-        settings.host = host!!.text
-        settings.port = port!!.text.toInt()
-        settings.namespace = namespace!!.text
-        settings.username = username!!.text
-        settings.password = password!!.password.joinToString("")
+        settings.lsTraceLogs = lsTraceLogs.isSelected
+        settings.host = host.text
+        settings.port = port.text.toInt()
+        settings.namespace = namespace.text
+        settings.username = username.text
+        settings.password = password.password.joinToString("")
     }
 
-    fun isModified(settings: InterSystemsProjectSettings): Boolean =
-        lsTraceLogs!!.isSelected != settings.lsTraceLogs ||
-            host!!.text != settings.host ||
-            port!!.text.toInt() != settings.port ||
-            namespace!!.text != settings.namespace ||
-            username!!.text != settings.username ||
-            !password!!.password.contentEquals(settings.password.toCharArray())
-
-    override fun dispose() {
-        UIUtil.dispose(settingsPane)
-        settingsPane = null
-        lsTraceLogs = null
-        host = null
-        port = null
-        namespace = null
-        username = null
-        password = null
-    }
+    fun isModified(settings: InterSystemsProjectSettings): Boolean = lsTraceLogs.isSelected != settings.lsTraceLogs ||
+        host.text != settings.host ||
+        port.text.toInt() != settings.port ||
+        namespace.text != settings.namespace ||
+        username.text != settings.username ||
+        !password.password.contentEquals(settings.password.toCharArray())
 }

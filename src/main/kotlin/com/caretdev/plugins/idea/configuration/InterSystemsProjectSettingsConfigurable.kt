@@ -3,7 +3,6 @@ package com.caretdev.plugins.idea.configuration
 import com.caretdev.plugins.idea.preloading.LSPUtils
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.util.Disposer
 import javax.swing.JComponent
 
 class InterSystemsProjectSettingsConfigurable(private val project: Project) :
@@ -15,7 +14,7 @@ class InterSystemsProjectSettingsConfigurable(private val project: Project) :
 
     override fun isProjectLevel(): Boolean = true
 
-    override fun createComponent(): JComponent? {
+    override fun createComponent(): JComponent {
         settingsPanel = settingsPanel ?: InterSystemsProjectSettingsPanel(project)
         return settingsPanel!!.getPanel()
     }
@@ -33,10 +32,7 @@ class InterSystemsProjectSettingsConfigurable(private val project: Project) :
     override fun getDisplayName(): String = "InterSystems"
 
     override fun disposeUIResources() {
-        if (settingsPanel == null) {
-            return
-        }
-        Disposer.dispose(settingsPanel!!)
+//        Disposer.dispose(settingsPanel!!)
         this.settingsPanel = null
     }
 }

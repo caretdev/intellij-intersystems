@@ -4,7 +4,7 @@
   "scopeName": "source.objectscript_macros",
   "patterns": [
     {
-      "match": "^(ROUTINE)\\s(\\b[\\p{Alnum}.]+\\b)",
+      "match": "^(ROUTINE)\\s(%?\\b[\\p{Alnum}.]+\\b)",
       "captures": {
         "1": { "name": "keyword.control" },
         "2": { "name": "entity.name.class" }

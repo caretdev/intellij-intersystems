@@ -15,7 +15,7 @@ class InterSystemsLSLogNotifier : CloudNotifier(notificationDisplayId) {
     fun showMessage(project: Project, message: String, messageType: MessageType) {
         val notificationGroup: NotificationGroup = findOrCreateBalloonGroup()!!
         val notification: Notification =
-            notificationGroup.createNotification("", message, messageType.toNotificationType(), null)
+            notificationGroup.createNotification(message, messageType.toNotificationType())
         if (project.isOpen && !project.isDisposed) {
             notification.notify(project)
         } else {
