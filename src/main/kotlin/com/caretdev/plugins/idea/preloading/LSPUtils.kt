@@ -36,8 +36,11 @@ class LSPUtils(private val pluginPath: Path) {
         }
 
         val os = OSUtils.operatingSystem
-        val arch = System.getProperty("os.arch")
+        var arch = System.getProperty("os.arch")
         val exe = if (OSUtils.operatingSystem == OSUtils.WINDOWS) ".exe" else ""
+        if (arch == "amd64") {
+            arch = "x86_64"
+        }
         val lsPath = pluginPath.resolve("lib/language-server/$os-$arch/intersystems-ls$exe")
         checkExecutable(lsPath)
 
